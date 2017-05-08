@@ -1,0 +1,3 @@
+rootProject.name = 'valueChange'
+
+include ':app'
