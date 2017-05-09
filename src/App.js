@@ -9,6 +9,10 @@ class App extends Component {
         }
     }
 
+    display() {
+        this.setState()
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -19,13 +23,13 @@ class App extends Component {
                     Input name and tab registration button.
                 </Text>
                 <TextInput placeholder={'text...'} style={styles.textInput} editable={true} value={this.state.text} onChangeText={(text) => this.setState({text})}/>
-                <TouchableOpacity onPress={() => {}}>
-                    <View style={styles.registButton} onPress={() => {}}>
+                <TouchableOpacity onPress={this.display}>
+                    <View style={styles.registButton}>
                         <Text style={styles.registButtonText}>registration</Text>
                     </View>
                 </TouchableOpacity>
                 <View>
-                    <Text></Text>
+                    <Text>{this.state.text}</Text>
                 </View>
             </View>
         )
@@ -35,8 +39,6 @@ class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //justifyContent: 'center',
-        //alignItems: 'center',
         backgroundColor: '#F5FCFF',
         paddingTop: 50,
     },
