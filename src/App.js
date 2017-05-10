@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
+import display from './actions/actions';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            text: ''
-        }
-    }
-
-    display() {
-        this.setState()
+        // this.state = {
+        //     text: '',
+        // }
     }
 
     render() {
+        console.info(this.props);
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
@@ -22,17 +21,27 @@ class App extends Component {
                 <Text style={styles.instructions}>
                     Input name and tab registration button.
                 </Text>
-                <TextInput placeholder={'text...'} style={styles.textInput} editable={true} value={this.state.text} onChangeText={(text) => this.setState({text})}/>
-                <TouchableOpacity onPress={this.display}>
+                <TextInput placeholder={'text...'} style={styles.textInput} editable={true} value={this.state} onChangeText={() => {}}/>
+                <TouchableOpacity onPress={this.props.display}>
                     <View style={styles.registButton}>
                         <Text style={styles.registButtonText}>registration</Text>
                     </View>
                 </TouchableOpacity>
                 <View>
-                    <Text>{this.state.text}</Text>
+                    <Text style={styles.instructions}>{this.props.text}</Text>
                 </View>
             </View>
         )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        display: () => dispatch(display())
     }
 }
 
@@ -80,4 +89,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
