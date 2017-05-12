@@ -1,16 +1,16 @@
 
-const reducer = (state = '', action) => {
+const reducer = (state = {text: ''}, action) => {
     switch (action.type) {
         case 'DISPLAY_TEXT':
-            return {
-                type: 'DISPLAY_TEXT',
-                text: state,
-            }
+            return Object.assign({}, state, {
+                text: action.text
+            });
+        case 'CHANGE_TEXT':
+            return Object.assign({}, state, {
+                text: state.text
+            });
         default:
-            return {
-                type: action.type,
-                text: state,
-            }
+            return state;
     }
 }
 

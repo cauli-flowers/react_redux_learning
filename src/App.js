@@ -1,34 +1,44 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import display from './actions/actions';
-
+import {display, change} from './actions/actions';
+console.log("test")
 class App extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     text: '',
-        // }
+        this.state = {
+            text: '',
+        }
+    }
+
+    setValue() {
+        const {display} = this.props;
+        display(this.state.text);
+        this.setState({text: ''});
     }
 
     render() {
-        console.info(this.props);
+        const {display, change} = this.props;
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
-                    Name Register
+                    NAME Registration app
                 </Text>
                 <Text style={styles.instructions}>
-                    Input name and tab registration button.
+                    Input your name {"\n"}
+                    and{"\n"}
+                    tap the registration button.
                 </Text>
-                <TextInput placeholder={'text...'} style={styles.textInput} editable={true} value={this.state} onChangeText={() => {}}/>
-                <TouchableOpacity onPress={this.props.display}>
+                <TextInput placeholder={'your name...'} style={styles.textInput} editable={true} value={this.state.text} onChangeText={(text) => this.setState({text})}/>
+                <TouchableOpacity onPress={this.setValue.bind(this)}>
                     <View style={styles.registButton}>
                         <Text style={styles.registButtonText}>registration</Text>
                     </View>
                 </TouchableOpacity>
                 <View>
-                    <Text style={styles.instructions}>{this.props.text}</Text>
+                    <Text style={styles.result}>
+                        {this.props.text !== '' ? 'Your name is ' + this.props.text : ''}
+                    </Text>
                 </View>
             </View>
         )
@@ -36,12 +46,15 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return state;
+    return {
+        text: state.text
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        display: () => dispatch(display())
+        display: (text) => dispatch(display(text)),
+        change: () => dispatch(change())
     }
 }
 
@@ -54,12 +67,21 @@ const styles = StyleSheet.create({
     welcome: {
         fontSize: 20,
         textAlign: 'center',
-        margin: 10
+        margin: 10,
+        fontWeight: 'bold'
     },
     instructions: {
         textAlign: 'center',
         color: '#333333',
-        marginBottom: 5
+        marginTop: 30,
+    },
+    result: {
+        textAlign: 'center',
+        color: '#333333',
+        marginTop: 30,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#F7819F'
     },
     textInput: {
         height: 35,
@@ -68,6 +90,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         alignItems: 'center',
         margin: 30,
+        marginBottom: 10,
         paddingLeft: 5,
         paddingRight: 5
     },
@@ -88,5 +111,4 @@ const styles = StyleSheet.create({
         color: 'white'
     }
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(App);
