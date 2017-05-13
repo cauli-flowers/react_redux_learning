@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {display, change} from './actions/actions';
-console.log("test")
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        text: state.text
+        text: state.reducer1.text
     };
 }
 
